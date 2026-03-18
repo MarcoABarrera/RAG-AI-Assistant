@@ -24,7 +24,7 @@ def query_rag(question: str):
     )
 
     # 3. Retrieve relevant chunks
-    retriever = vectordb.as_retriever(search_kwargs={"k": 4})
+    retriever = vectordb.as_retriever(search_kwargs={"k": 6}) #more chunks better answers
     docs = retriever.invoke(question)
 
     print("\n🔎 Retrieved context:\n")
@@ -38,13 +38,18 @@ def query_rag(question: str):
     context = "\n\n".join([doc.page_content for doc in docs])
 
     prompt = f"""
-    Answer the question based ONLY on the context below.
+    You are an AI assistant helping with machine learning concepts.
+
+    Use ONLY the provided context to answer clearly and concisely.
+    If the answer is not in the context, say "I don't know".
 
     Context:
     {context}
 
     Question:
     {question}
+
+    Answer:
     """
 
     # 6. Generate answer
