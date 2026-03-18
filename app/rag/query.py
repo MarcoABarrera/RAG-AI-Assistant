@@ -5,7 +5,7 @@ load_dotenv()
 
 from langchain_community.vectorstores import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_openai import ChatOpenAI
+from langchain_ollama import ChatOllama
 
 
 DB_PATH = "db"
@@ -32,7 +32,7 @@ def query_rag(question: str):
         print(f"- {doc.metadata['source']} (page {doc.metadata['page']})")
 
     # 4. LLM
-    llm = ChatOpenAI(model="gpt-4o-mini")
+    llm = ChatOllama(model="llama3")
 
     # 5. Build prompt
     context = "\n\n".join([doc.page_content for doc in docs])
