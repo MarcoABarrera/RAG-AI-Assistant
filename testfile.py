@@ -1,17 +1,8 @@
 from dotenv import load_dotenv
 import os
-from openai import OpenAI
+print("FILES:", os.listdir())
+# Force correct path
+env_path = os.path.join(os.path.dirname(__file__), ".env")
+load_dotenv(dotenv_path=env_path)
 
-# Load .env file
-load_dotenv()
-
-# Initialize client
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
-response = client.chat.completions.create(
-    model="gpt-4o-mini",
-    messages=[{"role": "user", "content": "Hello!"}]
-)
-
-print(response.choices[0].message.content)
-print(os.getenv("OPENAI_API_KEY"))
+print("DEBUG KEY:", os.getenv("OPENAI_API_KEY"))
