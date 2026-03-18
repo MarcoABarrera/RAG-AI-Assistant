@@ -1,12 +1,17 @@
-from langchain.document_loaders import PyPDFLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import Chroma
+from dotenv import load_dotenv
 import os
+
+load_dotenv()
+
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.vectorstores import Chroma
 
 
 DATA_PATH = "data"
 DB_PATH = "db"
+
 
 
 def load_documents():
@@ -43,7 +48,9 @@ def split_documents(documents):
 
 
 def create_vectorstore(chunks):
-    embeddings = OpenAIEmbeddings()
+    embeddings = HuggingFaceEmbeddings(
+    model_name="all-MiniLM-L6-v2"
+    )
 
     vectordb = Chroma.from_documents(
         documents=chunks,
@@ -62,4 +69,5 @@ def run_ingestion():
 
 
 if __name__ == "__main__":
+    print("API KEY:", os.getenv("OPENAI_API_KEY"))
     run_ingestion()
