@@ -17,11 +17,9 @@ An end-to-end **Retrieval-Augmented Generation (RAG)** system that allows users 
 
 ##  Architecture
 
-```
-PDFs → Chunking → Embeddings → Vector DB (Chroma)
-                                      ↓
-User Query → Retrieval → Local LLM (Ollama) → Answer
-```
+
+![Workflow](docs/RAGAIAssistant.png)
+
 
 ---
 
