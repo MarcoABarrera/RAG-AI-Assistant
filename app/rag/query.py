@@ -32,7 +32,10 @@ def query_rag(question: str):
         print(f"- {doc.metadata['source']} (page {doc.metadata['page']})")
 
     # 4. LLM
-    llm = ChatOllama(model="llama3")
+    llm = ChatOllama(
+    model="mistral",
+    base_url="http://host.docker.internal:11434"
+        )
 
     # 5. Build prompt
     context = "\n\n".join([doc.page_content for doc in docs])
